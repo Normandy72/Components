@@ -14,9 +14,10 @@
         }
     });
 
-    ShoppingListComponentController.$inject = ['$scope', '$element'];
-    function ShoppingListComponentController($scope, $element){
+    ShoppingListComponentController.$inject = ['$element'];
+    function ShoppingListComponentController($element){
         var $ctrl = this;
+        var totalItems;
       
         $ctrl.cookiesInList = function () {
           for (var i = 0; i < $ctrl.items.length; i++) {
@@ -35,29 +36,47 @@
 
         // Component's lifecycle
         $ctrl.$onInit = function(){
-            console.log('We are in $onInit()');
+            totalItems = 0;
         };
 
         $ctrl.$onChanges = function(changeObj){
             console.log(changeObj);
         };
 
-        $ctrl.$postLink = function(){
-            $scope.$watch('$ctrl.cookiesInList()', function(newValue, oldValue){
-                console.log($element);
-                if(newValue === true){
-                    // Show warning
-                    var warningElem = $element.find('div.error');
-                    warningElem.slideDown(900);
-                }
-                else{
-                    // Hide warning
-                    var warningElem = $element.find('div.error');
-                    warningElem.slideUp(900);
-                }
-            });
-        };
+        // $scope must be injected
+        // $ctrl.$postLink = function(){
+        //     $scope.$watch('$ctrl.cookiesInList()', function(newValue, oldValue){
+        //         console.log($element);
+        //         if(newValue === true){
+        //             // Show warning
+        //             var warningElem = $element.find('div.error');
+        //             warningElem.slideDown(900);
+        //         }
+        //         else{
+        //             // Hide warning
+        //             var warningElem = $element.find('div.error');
+        //             warningElem.slideUp(900);
+        //         }
+        //     });
+        // };
 
+        // Doesn't work :(
+        // $ctrl.$doCheck = function(){
+        //     if($ctrl.items.length !== totalItems){
+        //         console.log('Checking for cookies');
+        //         totalItems = $ctrl.items.length;
+        //         if($ctrl.cookiesInList()){
+        //             console.log('oh no, cookies');
+        //             var warningElem = $element.find('div.error');
+        //             warningElem.slideDown(900);
+        //         }
+        //         else{
+        //             console.log('no cookies');
+        //             var warningElem = $element.find('div.error');
+        //             warningElem.slideUp(900);
+        //         }
+        //     }
+        // };
 
       }
       

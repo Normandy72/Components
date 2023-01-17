@@ -73,3 +73,10 @@ angular.module('App', [])
     {{ $ctrl.prop1.prop }} and {{ $ctrl.prop2 }}
 </my-component>
 ```
+***
+#### _Summary_
+* Components encourage component-based architecture, but they don't enforce it 100%, so we must follow conventions.
+* Components should never modify data or DOM that doesn't belong to them. That's why it always has isolate scope and well-defined API.
+* Register component with `.component('name', configObj)`.
+* Provide controller only if you are adding extra functionality. Otherwise, Angular already provides an empty function for us.
+***
